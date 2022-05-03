@@ -1,0 +1,36 @@
+<button class="btn btn-secondary" (click)="add()">Add New Product</button>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of products" (click)="showProduct(product.id)" >
+            <th scope="row">{{product.id}}</th>
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<form *ngIf="showForm">
+    <div class="form-group">
+        <label for="txtName">Name</label>
+        <input type="text"
+               class="form-control"
+               id="txtName"
+               placeholder="Product Name" value="{{selectedProduct?.name}}">
+    </div>
+    <div class="form-group">
+        <label for="txtPrice">Price</label>
+        <input type="text"
+               class="form-control"
+               id="txtPrice"
+               placeholder="Product Price" value="{{selectedProduct?.price}}">
+    </div>
+    <button class="btn btn-primary mt-2 me-1" (click)="saveForm()">Save</button>
+    <button class="btn btn-secondary mt-2" (click)="cancelEditForm()">Cancel</button>
+</form>

@@ -1,0 +1,62 @@
+<p class="c1">Overview Angular Syntax</p>
+<!-- Interpolation -->
+<p title="{{title}}">{{data}}</p>
+
+<div>
+    My Data :
+    <input type="text"
+           value="{{data}}">
+</div>
+
+<div>
+    <br>
+    <!-- Event Binding -->
+    <button (click)="changeData()">Change Data</button>
+</div>
+
+<div>
+    <p>Price : {{price}}</p>
+    <!-- Attribute Binding -->
+    <button [disabled]="price > 5"
+            (click)="changePrice()">Change Price</button>
+    <button [disabled]="price==0"
+            (click)="resetPrice()">Reset Price</button>
+</div>
+
+<!-- Directive (Structural, Attribute) -->
+
+<div *ngIf="price < 5; else other">
+    Custom Content
+</div>
+<!-- Template Reference -->
+<ng-template #other>
+    Other Content
+</ng-template>
+<br>
+<div>
+    Title :
+    <input type="text" #myTitle>
+    <button (click)="setTitle(myTitle.value)">Set Title</button>
+    <p>
+        {{title}}
+    </p>
+</div>
+
+<ul>
+    <!-- <li>Item1</li>
+    <li>Item2</li>
+    <li>Item3</li>    <!-- <li>Item1</li>
+    <li>Item2</li>
+    <li>Item3</li> -->
+
+    <li *ngFor="let item of items">{{item}}</li>
+</ul>
+
+<p [ngClass]="{'c1': price< 4, 'c2': price >= 4 }">
+    My Paragraph Data
+</p>
+<!-- kabab case, camel case -->
+<p [ngStyle]="{color: myColor, backgroundColor: bgColor}">
+    Inline Style 
+</p>
+
