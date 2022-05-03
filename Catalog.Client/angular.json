@@ -78,7 +78,7 @@
               "browserTarget": "Catalog.Client:build:production"
             },
             "development": {
-              "browserTarget": "Catalog.Client:build:development",
+              "browserTarget": "Catalog.Client:build:development"
             }
           },
           "defaultConfiguration": "development"
