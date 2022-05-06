@@ -3,25 +3,29 @@
     <thead>
         <tr>
             <th scope="col">Id</th>
+            <th scope="col">code</th>
             <th scope="col">Name</th>
             <th scope="col">Price</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let product of products" (click)="showProduct(product.id)" >
-            <th scope="row">{{product.id}}</th>
+        <tr *ngFor="let product of products;let i=index" (click)="showProduct(product.id)" >
+            <th scope="row">{{i+1}}</th>
+            <td >{{product.id}}</td>
             <td>{{product.name}}</td>
             <td>{{product.price}}</td>
         </tr>
     </tbody>
 </table>
 
-<form *ngIf="showForm">
+<div name="frmProduct" *ngIf="showForm">
     <div class="form-group">
         <label for="txtName">Name</label>
         <input type="text"
                class="form-control"
                id="txtName"
+               name="txtName"
+               #txtName
                placeholder="Product Name" value="{{selectedProduct?.name}}">
     </div>
     <div class="form-group">
@@ -29,8 +33,10 @@
         <input type="text"
                class="form-control"
                id="txtPrice"
+               Name="txtPrice"
+               #txtPrice
                placeholder="Product Price" value="{{selectedProduct?.price}}">
     </div>
-    <button class="btn btn-primary mt-2 me-1" (click)="saveForm()">Save</button>
+    <button  class="btn btn-primary mt-2 me-1" (click)="saveForm(txtName.value,txtPrice.value)">Save</button>
     <button class="btn btn-secondary mt-2" (click)="cancelEditForm()">Cancel</button>
-</form>
+</div>

@@ -9,7 +9,8 @@ if (environment.production) {
 }
 
 export function getBaseUrl() {
-  return document.getElementsByTagName('base')[0].href;
+  return document.getElementsByTagName('base')[0].href
+    .replace("4200","5000").replace("http","https");
 }
 
 const providers = [

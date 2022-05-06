@@ -1,36 +1,47 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Session12.ProductManager.Model;
 
-namespace Session12.ProductManager.Controllers
+
+
+[ApiController]
+[Route("[controller]")]
+public class ProductController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class ProductController : ControllerBase
+
+    private readonly OnlineStoreContext _productContext;
+
+    public ProductController(OnlineStoreContext productContext)
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
-        private readonly ILogger<ProductController> _logger;
-
-        public ProductController(ILogger<ProductController> logger)
-        {
-            _logger = logger;
-        }
+        _productContext = productContext;
+    }
 
 
-        [HttpGet]
-        [Route("Products")]
-        public IEnumerable<Product> GetProduct()
-        {
-            var ret= new[]{
-                    new Product(1, "Phone", 100),
-                    new Product(2, "Tablet", 200),
-                    new Product(3, "Laptop", 300),
-                };
+    [HttpGet]
+    [Route("Products")]
+    public IEnumerable<Product> GetProduct()
+    {
+        var ret = _productContext.Products.ToList();
+        return ret;
+    }
 
-            return ret;
-        }
+
+    [HttpPost]
+    [Route("UpdateProduct")]
+    public Product? UpdateProduct(Product product)
+    {
+        _productContext.Products.Update(product);
+        _productContext.SaveChanges();
+
+        return _productContext.Products.FirstOrDefault(x => x.id == product.id);
+    }
+
+
+    [HttpPost]
+    [Route("AddProduct")]
+    public Product? AddProduct(Product product)
+    {
+        _productContext.Products.Add(product);
+        _productContext.SaveChanges();
+
+        return product;
     }
 }
